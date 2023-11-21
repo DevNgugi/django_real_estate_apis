@@ -139,4 +139,4 @@ SIMPLE_JWT = {
 # custom user model
 AUTH_USER_MODEL = 'user.UserAccount'
 
-DATABASE_ROUTERS=['user.router.AuthRouter']
+DATABASE_ROUTERS=['user.router.AuthRouter','listing.router.ListingRouter']
