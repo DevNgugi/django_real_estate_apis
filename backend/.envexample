@@ -1,0 +1,7 @@
+#Database 
+USERS_DATABASE_NAME=listing_users
+LISTINGS_DATABASE_NAME=listing_listings
+DATABASE_USER=phil
+DATABASE_PASSWORD=password
+DATABASE_HOST=localhost
+DATABASE_PORT=5432

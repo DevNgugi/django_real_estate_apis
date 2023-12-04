@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "226a158e-ced2-4b56-8f6c-0c5b55897ceb",
+		"name": "Real Estate App",
+		"description": "A simple 12 Factor DJango Real estate API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28169279"
+	},
+	"item": [
+		{
+			"name": "Register User Account",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"John Doe\",\n    \"email\":\"email@doe.com\",\n    \"password\":\"password\",\n    \"re_password\":\"password\",\n    \"is_realtor\":\"False\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/auth/user/register/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"auth",
+						"user",
+						"register",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Realtor Account",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"John Doe\",\n    \"email\":\"email@doe.com\",\n    \"password\":\"password\",\n    \"re_password\":\"password\",\n    \"is_realtor\":\"True\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/auth/user/register/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"auth",
+						"user",
+						"register",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get API Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"email@doe.com\",\n    \"password\":\"password\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/token/auth/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"token",
+						"auth",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Realtor User Login",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAxNzE2NjEzLCJpYXQiOjE3MDE3MTQ4MTMsImp0aSI6IjFmYTg0M2NmYzgwYjQ1NGJhYTJlODU3MDcwYjgzOGVkIiwidXNlcl9pZCI6OH0.ndTOP-kkehN7XDSWWyukwX1jF0uzLq5qwG2iSff4KQM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"John Doe\",\n    \"email\":\"email@doe.com\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/auth/user/get/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"auth",
+						"user",
+						"get",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Normal User Login",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAxNzE2NzE1LCJpYXQiOjE3MDE3MTQ5MTUsImp0aSI6IjA3NDcxZjBhYTUzMDQzNTM4MGU3MDVlMzQ0OTk2NjYzIiwidXNlcl9pZCI6OX0._SngluivScOOw0g0Y55pC0MpeVuTAWaIJDBM1KgfGQg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"John Doe\",\n    \"email\":\"email@doe.com\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/auth/user/get/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"auth",
+						"user",
+						"get",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
