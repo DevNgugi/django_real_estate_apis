@@ -31,6 +31,7 @@ class Listing(models.Model):
     photo_3=models.ImageField(upload_to='listings/')
     is_published=models.BooleanField(default=False)
     date_created=models.DateTimeField(default=now)
+
     
     def __str__(self):
         return self.title
