@@ -3,6 +3,7 @@ from datetime import timedelta
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
 
 
@@ -28,7 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'listing',
     'user',
-    'rest_framework'
+    'rest_framework',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [

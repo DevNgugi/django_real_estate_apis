@@ -1,9 +1,11 @@
+from wsgiref.handlers import IISCGIHandler
 from rest_framework.views import APIView
 
 from .models import Listing
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, permissions
 from .models import Listing
+
 
 from .serializers import ListingSerializer
 
@@ -18,8 +20,12 @@ class ManageListingView(APIView):
                 Listing.objects.order_by('-date_created').filter(
                     realtor=user.email
                 )
-                listing=ListingSerializer(Listing.objects.all(),many=True)
+                listing_queryset=Listing.objects.order_by('-date_created').filter(realtor=user.email)
+                
+                listing=ListingSerializer(listing_queryset,many=True)
+                
                 return Response({'listings': listing.data},status=status.HTTP_200_OK)  
+            
             if not Listing.objects.filter(
                 realtor=user.email,
                 slug=slug
@@ -40,7 +46,7 @@ class ManageListingView(APIView):
             slug=data['slug']
             if Listing.objects.filter(slug=slug).exists():
                 return Response({'error':'Listing with this slug exists'},status=status.HTTP_400_BAD_REQUEST)                    
-                
+            
             title=data['title']
             address=data['address']
             city=data['city']
@@ -114,3 +120,34 @@ class ManageListingView(APIView):
 
         except Exception as e:
             return Response({'error':str(e),},status=status.HTTP_500_INTERNAL_SERVER_ERROR)                    
+
+
+class ListingDetailView(APIView):
+    def get(self, request, format=None):
+        try:
+            slug= request.query_params.get('slug',None)
+            
+            if not slug:
+                return Response({'error':'Must provide slug'},status=status.HTTP_400_BAD_REQUEST)  
+            if not Listing.objects.filter(slug=slug, is_published=True).exists():
+                return Response({'error':'Published listing with this slug does not exist'},status=status.HTTP_404_NOT_FOUND)  
+            listing=ListingSerializer(Listing.objects.get(slug=slug,is_published=True))
+            
+            return Response({'listing':listing.data},status=status.HTTP_200_OK)  
+        
+        except:
+            return Response({'error':'Something went wrong while retrieving Listing'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)  
+
+class ListingsView(APIView):
+    permission_classes=[permissions.AllowAny]
+    
+    def get(self, request, format=None):
+        try:
+            if not Listing.objects.filter(is_published=True).exists():
+                return Response({'error':''},status=status.HTTP_404_NOT_FOUND)  
+            listings=ListingSerializer(Listing.objects.order_by('-date_created').filter(is_published=True),many=True)
+            return Response({'listings':listings.data},status=status.HTTP_200_OK)  
+            
+        except:
+            return Response({'error':'Something went wrong while retrieving Listings'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)  
+            
