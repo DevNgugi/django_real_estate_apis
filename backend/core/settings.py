@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-r0&dz*0k4aq*c#vyy)84q3=hl@mjabn!wygq8x!=wdi$fhn5t-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -31,11 +31,14 @@ INSTALLED_APPS = [
     'user',
     'rest_framework',
     'drf_yasg',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -148,3 +151,12 @@ SIMPLE_JWT = {
 AUTH_USER_MODEL = 'user.UserAccount'
 
 DATABASE_ROUTERS=['user.router.AuthRouter','listing.router.ListingRouter']
+
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+     'http://localhost:5173',
+]
