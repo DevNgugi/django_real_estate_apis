@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref ,reactive} from 'vue';
+import { ref ,reactive, onMounted} from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { userStore } from '@/stores/user';
 const route=useRoute()
@@ -48,13 +48,24 @@ const data=reactive({
 })
 import axios from 'axios'
 
+onMounted(()=>{
+
+    if (localStorage.getItem('access_token')){
+            router.push({ name: 'home'});
+        }
+})
+
+
 const submit=async ()=>{
-    try{
+    try{    
+       
 
         const response = await axios.post("http://localhost:8000/api/token/auth/", data);
         if(response.data.access){
             localStorage.setItem("access_token", response.data.access)
-            
+            localStorage.setItem("refresh_token", response.data.refresh)
+
+        
 
         const authUser = await axios.get('http://localhost:8000/auth/user/get/', {
             headers: {
@@ -67,9 +78,6 @@ const submit=async ()=>{
 
             await router.push({ name: 'home'});
         }
-
-       
-
         
     }
     catch(error:any){
