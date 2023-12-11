@@ -43,6 +43,10 @@
                   </p>
               </form>
           </div>
+          <button @click="
+router.push({ name: 'home'});
+
+  ">home</button>
       </div>
   </div>
 </section>
@@ -51,9 +55,9 @@
 <script setup lang="ts">
 
 import {reactive, ref} from 'vue'
-
 import { useRoute, useRouter } from 'vue-router';
-
+import axios from 'axios'
+import {toast} from 'vue3-toastify';
 const router = useRouter();
 
 const data=reactive({
@@ -63,19 +67,25 @@ const data=reactive({
     re_password:'',
     is_realtor:false
 })
-import axios from 'axios'
 
 const submit=async ()=>{
+    
     try{
         const response = await axios.post("http://localhost:8000/auth/user/register/", data);
         if(response.data.success){
-            
-            await router.push({ name: 'login', query : { email: data.email } });
+           
+
+          await router.push({ name: 'login', query : { email: data.email } });
+          toast.success('Account created successfully', {
+                autoClose: 3000,
+            }); 
         }
         
     }
     catch(error:any){
-        console.error(error.data);
+        toast.error(error.response.data, {
+                autoClose: 3000,
+            }); 
     }
  
     
