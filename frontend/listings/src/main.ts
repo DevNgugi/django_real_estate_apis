@@ -1,6 +1,6 @@
 import './assets/main.css'
 import 'primeicons/primeicons.css';
-
+import '@/interceptors/axios'
 import 'vue3-toastify/dist/index.css';
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
